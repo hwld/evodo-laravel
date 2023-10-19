@@ -1,10 +1,10 @@
-FROM php:8.2-apache
+FROM php:8.2-apache as base
 
 WORKDIR /var/www/
 
 RUN apt-get update && apt-get install -y \
-    libzip-dev \
-    && docker-php-ext-install zip pdo_mysql
+    libzip-dev nodejs npm \
+    && docker-php-ext-install zip pdo_mysql 
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
